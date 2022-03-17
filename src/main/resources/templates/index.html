@@ -11,9 +11,8 @@
 	<div class="container align-self-center">
 		<div class="card">
 			<div class="card-body">
-				<h5 class="card-title">To-do list</h5>
-
-				<table class="table">
+				<h5 class="card-title">My to-do list</h5>
+				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
@@ -28,30 +27,21 @@
 							<td th:text="${iter.index + 1}" />
 							<td th:text="${item.description}" />
 							<td th:text="${item.targetDate}" />
-							<td th:if="${item.isCompleted}">Yes</td>
-							<td th:unless="${item.isCompleted}">No</td>
-							<td>
-								<a th:href="@{/item/{id}(id = ${item.id})}" class="btn btn-primary btn-sm">Edit</a>
-								<button type="button" th:attr="data-id=${item.id}" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">
-									Delete
-								</button>
-							</td>
+							<td th:if="${item.completed}">Yes</td>
+							<td th:unless="${item.completed}">No</td>
+							<td><a th:href="@{/item/{id}(id = ${item.id})}"
+								class="btn btn-primary btn-sm">Edit</a>
+								<button type="button" th:attr="data-id=${item.id}"
+									class="btn btn-danger btn-sm" data-bs-toggle="modal"
+									data-bs-target="#deleteConfirmationModal">Delete</button></td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td>
-								<a th:href="@{/item}" class="btn btn-success btn-sm">Create</a>
-							</td>
-						</tr>
-					</tfoot>
 				</table>
-
+				<div><a th:href="@{/item}" class="btn btn-success btn-sm">Create</a></div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Modal -->
 	<div class="modal fade" id="deleteConfirmationModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -63,7 +53,8 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body">Are you sure you want to delete this item?</div>
+					<div class="modal-body">Are you sure you want to delete this
+						item?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary btn-sm"
 							data-bs-dismiss="modal">Close</button>
@@ -76,20 +67,19 @@
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+		crossorigin="anonymous"></script>
 
 	<script>
-
 		$(function() {
 
-
-			$('#deleteConfirmationModal').on('show.bs.modal', function (event) {
+			$('#deleteConfirmationModal').on('show.bs.modal', function(event) {
 
 				const itemId = $(event.relatedTarget).data('id');
 				$(this).find("input[name='id']").val(itemId);
 			});
 		});
-
 	</script>
 </body>
 </html>

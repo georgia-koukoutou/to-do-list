@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,21 +25,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ToDoItem {
 
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	@NotNull
-	@Size(min = 2, max = 30)
-	@Column(name = "description", nullable = false)
-	private String description;
+    @NotBlank
+    @Size(min = 2, max = 30)
+    @Column(name = "description", nullable = false)
+    private String description;
 
-	@NotNull
-	@Column(name = "target_date")
-	private LocalDate targetDate;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "target_date")
+    private LocalDate targetDate;
 
-	@Column(name = "completed")
-	private Boolean isCompleted;
+    @Column(name = "completed", nullable = false)
+    private boolean completed;
 
 }
